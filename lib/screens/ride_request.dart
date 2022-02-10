@@ -149,7 +149,7 @@ class _RideRequestScreenState extends State<RideRequestScreen> {
                         onPressed: null,
                         icon: Icon(Icons.attach_money),
                         label: Text(
-                            "${(appState.rideRequestModel.distance?.value)! / 500} ")),
+                            "${(appState.rideRequestModel.distance?.value)/ 500} ")),
                   ],
                 ),
                 Divider(),

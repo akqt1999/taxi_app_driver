@@ -13,15 +13,15 @@ class RideRequestModel {
   static const DISTANCE_TEXT = "distance_text";
   static const DISTANCE_VALUE = "distance_value";
 
- late String _id;
-  late String _username;
-  late String _userId;
-  late String _destination;
-  late  double _dLatitude;
-  late  double _dLongitude;
-  late  double _uLatitude;
-  late  double _uLongitude;
-  late Distance _distance;
+  String _id;
+   String _username;
+   String _userId;
+   String _destination;
+    double _dLatitude;
+    double _dLongitude;
+    double _uLatitude;
+    double _uLongitude;
+   Distance _distance;
 
   String get id => _id;
 
@@ -39,7 +39,7 @@ class RideRequestModel {
 
   double get uLongitude => _uLongitude;
 
-  Distance? get distance => _distance;
+  Distance get distance => _distance;
 
   RideRequestModel.fromMap(Map data) {
     String _d = data[DESTINATION];
@@ -59,8 +59,8 @@ class RideRequestModel {
 }
 
 class Distance {
-  late String text;
-  late int value;
+   String text;
+   int value;
 
   Distance.fromMap(Map data) {
     text = data["text"];
@@ -79,13 +79,13 @@ class RequestModelFirebase {
   static const POSITION = "position";
   static const DESTINATION = "destination";
 
-  late String _id;
-  late String _username;
-  late String _userId;
-  late String _driverId;
-  late String _status;
-  late Map _position;
-  late Map _destination;
+   String _id;
+   String _username;
+   String _userId;
+   String _driverId;
+   String _status;
+   Map _position;
+   Map _destination;
 
   String get id => _id;
   String get username => _username;
@@ -96,13 +96,13 @@ class RequestModelFirebase {
   Map get destination => _destination;
 
   RequestModelFirebase.fromSnapshot(DocumentSnapshot snapshot) {
-    _id = snapshot.data()![ID];
-    _username = snapshot.data()![USERNAME];
-    _userId = snapshot.data()![USER_ID];
-    _driverId = snapshot.data()![DRIVER_ID];
-    _status = snapshot.data()![STATUS];
-    _position = snapshot.data()![POSITION];
-    _destination = snapshot.data()![DESTINATION];
+    _id = snapshot.data()[ID];
+    _username = snapshot.data()[USERNAME];
+    _userId = snapshot.data()[USER_ID];
+    _driverId = snapshot.data()[DRIVER_ID];
+    _status = snapshot.data()[STATUS];
+    _position = snapshot.data()[POSITION];
+    _destination = snapshot.data()[DESTINATION];
   }
 
   LatLng getCoordinates() => LatLng(_position['latitude'], _position['longitude']);

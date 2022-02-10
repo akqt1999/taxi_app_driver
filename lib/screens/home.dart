@@ -20,7 +20,7 @@ import 'login.dart';
 GoogleMapsPlaces places = GoogleMapsPlaces(apiKey: GOOGLE_MAPS_API_KEY);
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({  Key? key, required this.title}) : super(key: key);
+  MyHomePage({  Key key,  this.title}) : super(key: key);
   final String title;
 
   @override
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _updatePosition() async {
     //    this section down here will update the drivers current position on the DB when the app is opened
     SharedPreferences _prefs = await SharedPreferences.getInstance();
-    String? _id = _prefs.getString("id");
+    String _id = _prefs.getString("id");
     UserProvider _user = Provider.of<UserProvider>(context, listen: false);
     AppStateProvider _app =
     Provider.of<AppStateProvider>(context, listen: false);
@@ -167,7 +167,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  GoogleMapsPlaces? googlePlaces;
+  GoogleMapsPlaces googlePlaces;
   TextEditingController destinationController = TextEditingController();
   Color darkBlue = Colors.black;
   Color grey = Colors.grey;

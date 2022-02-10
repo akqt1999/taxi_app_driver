@@ -12,10 +12,10 @@ import 'package:taxi_app_flutter/services/user.dart';
 enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
 
 class UserProvider with ChangeNotifier {
-late  User _user;
+  User _user;
   Status _status = Status.Uninitialized;
   UserServices _userServices = UserServices();
-late  UserModel _userModel;
+  UserModel _userModel;
 
 //  getter
   UserModel get userModel => _userModel;
@@ -82,7 +82,7 @@ late  UserModel _userModel;
           .signInWithEmailAndPassword(
           email: email.text.trim(), password: password.text.trim())
           .then((value) async {
-        await prefs.setString("id", value.user!.uid);
+        await prefs.setString("id", value.user.uid);
       });
       return true;
     } catch (e) {
@@ -102,10 +102,10 @@ late  UserModel _userModel;
           email: email.text.trim(), password: password.text.trim())
           .then((result) async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        String? _deviceToken = await fcm.getToken();
-        await prefs.setString("id", result.user!.uid);
+        String _deviceToken = await fcm.getToken();
+        await prefs.setString("id", result.user.uid);
         _userServices.createUser(
-            id: result.user!.uid,
+            id: result.user.uid,
             name: name.text.trim(),
             email: email.text.trim(),
             phone: phone.text.trim(),
@@ -146,7 +146,7 @@ late  UserModel _userModel;
   }
 
   saveDeviceToken() async {
-    String? deviceToken = await fcm.getToken();
+    String deviceToken = await fcm.getToken();
     if (deviceToken != null) {
       _userServices.addDeviceToken(userId: user.uid, token: deviceToken);
     }

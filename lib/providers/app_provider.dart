@@ -34,10 +34,10 @@ class AppStateProvider with ChangeNotifier {
   Set<Marker> _markers = {};
   Set<Polyline> _poly = {};
   GoogleMapsServices _googleMapsServices = GoogleMapsServices();
-  late GoogleMapController  _mapController;
-  late Position  position;
-   static late LatLng _center;
-  late LatLng _lastPosition = _center;
+   GoogleMapController  _mapController;
+   Position  position;
+   static  LatLng _center;
+   LatLng _lastPosition = _center;
   final TextEditingController _locationController = TextEditingController();
   TextEditingController destinationController = TextEditingController();
 
@@ -46,26 +46,26 @@ class AppStateProvider with ChangeNotifier {
   TextEditingController get locationController => _locationController;
   Set<Marker> get markers => _markers;
   Set<Polyline> get poly => _poly;
-  GoogleMapController? get mapController => _mapController;
- late RouteModel  routeModel;
-  late SharedPreferences prefs;
+  GoogleMapController get mapController => _mapController;
+  RouteModel  routeModel;
+   SharedPreferences prefs;
 
   //Location location ;//= new Location(); //cai nay khong biet de lam chi
   bool hasNewRideRequest = false;
   UserServices _userServices = UserServices();
-  late RideRequestModel rideRequestModel;
-  late RequestModelFirebase requestModelFirebase;
+   RideRequestModel rideRequestModel;
+   RequestModelFirebase requestModelFirebase;
 
-  late  RiderModel riderModel;
+    RiderModel riderModel;
   RiderServices _riderServices = RiderServices();
   double distanceFromRider = 0;
   double totalRideDistance = 0;
- late StreamSubscription<QuerySnapshot> requestStream;
+  StreamSubscription<QuerySnapshot> requestStream;
   int timeCounter = 0;
   double percentage = 0;
-  late Timer periodicTimer;
+   Timer periodicTimer;
   RideRequestServices _requestServices = RideRequestServices();
-   Show ?show;
+   Show show;
 
   AppStateProvider() {
 
@@ -92,13 +92,13 @@ class AppStateProvider with ChangeNotifier {
            _handleNotificationData1(value);
          }
     });
-
     _getUserLocation();
     Geolocator.getPositionStream().listen(_userCurrentLocationUpdate);
   }
 
   // ANCHOR LOCATION METHODS
   _userCurrentLocationUpdate(Position updatedPosition) async {
+    prefs = await SharedPreferences.getInstance();
     double distance = await Geolocator.distanceBetween(
         prefs.getDouble('lat')??0,
         prefs.getDouble('lng')??0,
@@ -126,7 +126,7 @@ class AppStateProvider with ChangeNotifier {
     _center = LatLng(position.latitude, position.longitude);
     await prefs.setDouble('lat', position.latitude);
     await prefs.setDouble('lng', position.longitude);
-    _locationController.text = placemark[0].name!;
+    _locationController.text = placemark[0].name;
     notifyListeners();
   }
 
@@ -147,7 +147,7 @@ class AppStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void sendRequest({ required String intendedLocation, required LatLng coordinates}) async {
+  void sendRequest({  String intendedLocation,  LatLng coordinates}) async {
     LatLng origin = LatLng(position.latitude, position.longitude);
 
     LatLng destination = coordinates;
@@ -249,8 +249,8 @@ class AppStateProvider with ChangeNotifier {
   _saveDeviceToken() async {
     prefs = await SharedPreferences.getInstance();
     if (prefs.getString('token') == null) {
-      String? deviceToken = await fcm.getToken();
-      await prefs. setString('token', deviceToken!);
+      String deviceToken = await fcm.getToken();
+      await prefs. setString('token', deviceToken);
     }
   }
 
@@ -286,15 +286,15 @@ class AppStateProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  listenToRequest({required String id, required BuildContext context}) async {
+  listenToRequest({ String id,  BuildContext context}) async {
 //    requestModelFirebase = await _requestServices.getRequestById(id);
     print("======= LISTENING =======");
     requestStream = _requestServices.requestStream().listen((querySnapshot) {
       querySnapshot.docChanges.forEach((doc) {
-        if (doc.doc.data()!['id'] == id) {
+        if (doc.doc.data()['id'] == id) {
           requestModelFirebase = RequestModelFirebase.fromSnapshot(doc.doc);
           notifyListeners();
-          switch (doc.doc.data()!['status']) {
+          switch (doc.doc.data()['status']) {
             case CANCELLED:
               print("====== CANCELELD");
               break;
@@ -314,7 +314,7 @@ class AppStateProvider with ChangeNotifier {
   }
 
   //  Timer counter for driver request
-  percentageCounter({required String requestId, required BuildContext context}) {
+  percentageCounter({ String requestId,  BuildContext context}) {
     notifyListeners();
     periodicTimer = Timer.periodic(Duration(seconds: 1), (time) {
       timeCounter = timeCounter + 1;
@@ -331,21 +331,21 @@ class AppStateProvider with ChangeNotifier {
     });
   }
 
-  acceptRequest({required String requestId, required String driverId}) {
+  acceptRequest({ String requestId,  String driverId}) {
     hasNewRideRequest = false;
     _requestServices.updateRequest(
         {"id": requestId, "status": "accepted", "driverId": driverId});
     notifyListeners();
   }
 
-  cancelRequest({required String requestId}) {
+  cancelRequest({ String requestId}) {
     hasNewRideRequest = false;
     _requestServices.updateRequest({"id": requestId, "status": "cancelled"});
     notifyListeners();
   }
 
   //  ANCHOR UI METHODS
-  changeWidgetShowed({required Show showWidget}) {
+  changeWidgetShowed({ Show showWidget}) {
     show = showWidget;
     notifyListeners();
   }

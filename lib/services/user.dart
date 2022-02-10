@@ -6,15 +6,15 @@ class UserServices {
   String collection = "drivers";
 
   void createUser(
-      {String ?id,
-        String ?name,
-        String ?email,
-        String ?phone,
-        String ?token,
+      {String id,
+        String name,
+        String email,
+        String phone,
+        String token,
         int votes = 0,
         int trips = 0,
         double rating = 0,
-        Map ?position}) {
+        Map position}) {
     firebaseFiretore.collection(collection).doc(id).set({
       "name": name,
       "id": id,
@@ -34,7 +34,7 @@ class UserServices {
     firebaseFiretore.collection(collection).doc(values['id']).update(values);
   }
 
-  void addDeviceToken({required String token, required String userId}) {
+  void addDeviceToken({ String token,  String userId}) {
     firebaseFiretore
         .collection(collection)
         .doc(userId)

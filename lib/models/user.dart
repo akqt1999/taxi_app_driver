@@ -14,17 +14,17 @@ class UserModel{
 
 
 
- late String _id;
-  late String _name;
-  late String _email;
-  late String _phone;
-  late String _token;
-  late String _photo;
+  String _id;
+   String _name;
+   String _email;
+   String _phone;
+   String _token;
+   String _photo;
 
 
-  late int _votes;
-  late int _trips;
-  late double _rating;
+   int _votes;
+   int _trips;
+   double _rating;
 
 
 //  getters
@@ -41,15 +41,15 @@ class UserModel{
 
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot){
-    _name = snapshot.data()![NAME];
-    _email = snapshot.data()![EMAIL];
-    _id = snapshot.data()![ID];
-    _phone = snapshot.data()![PHONE];
-    _token = snapshot.data()![TOKEN];
-    _photo = snapshot.data()![TOKEN];
-    _votes = snapshot.data()![VOTES];
-    _trips = snapshot.data()![TRIPS];
-    _rating = snapshot.data()![RATING];
+    _name = snapshot.data()[NAME];
+    _email = snapshot.data()[EMAIL];
+    _id = snapshot.data()[ID];
+    _phone = snapshot.data()[PHONE];
+    _token = snapshot.data()[TOKEN];
+    _photo = snapshot.data()[TOKEN];
+    _votes = snapshot.data()[VOTES];
+    _trips = snapshot.data()[TRIPS];
+    _rating = snapshot.data()[RATING];
 
 
   }

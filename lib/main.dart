@@ -110,7 +110,6 @@ class _MyAppState extends State<MyApp> {
       print('loii_: Location permissions are permanently denied, we cannot request permissions.');
     }
 
-
   }
 
 }

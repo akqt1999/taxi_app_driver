@@ -8,16 +8,16 @@ class RouteModel {
   final String endAddress;
 
   RouteModel(
-      {required this.points,
-        required this.distance,
-        required this.timeNeeded,
-        required this.startAddress,
-        required this.endAddress});
+      { this.points,
+         this.distance,
+         this.timeNeeded,
+         this.startAddress,
+         this.endAddress});
 }
 
 class Distance {
-  String ?text;
-  int ?value;
+  String text;
+  int value;
 
   Distance.fromMap(Map data) {
     text = data["text"];
@@ -26,8 +26,8 @@ class Distance {
 }
 
 class TimeNeeded {
-  String ?text;
-  int ?value;
+  String text;
+  int value;
 
   TimeNeeded.fromMap(Map data) {
     text = data["text"];

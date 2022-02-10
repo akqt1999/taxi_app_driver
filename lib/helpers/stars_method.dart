@@ -1,13 +1,13 @@
 
 import 'package:taxi_app_flutter/widgets/stars.dart';
 
-stars({int? votes, double? rating}) {
+stars({int votes, double rating}) {
   if (votes == 0) {
     return StarsWidget(
       numberOfStars: 0,
     );
   } else {
-    double finalRate = rating! / votes!;
+    double finalRate = rating / votes;
     return StarsWidget(
       numberOfStars: finalRate.floor(),
     );

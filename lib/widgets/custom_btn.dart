@@ -5,14 +5,14 @@ import 'custom_text.dart';
 
 class CustomBtn extends StatelessWidget {
   final String  text;
-  final Color ? txtColor;
-  final Color ? bgColor;
-  final Color ?shadowColor;
-  final Function ()? onTap;
+  final Color  txtColor;
+  final Color  bgColor;
+  final Color shadowColor;
+  final Function () onTap;
 
    CustomBtn(
-      { Key? key,
-        required this.text,
+      { Key key,
+         this.text,
          this.txtColor,
          this.bgColor,
          this.shadowColor,
@@ -31,7 +31,7 @@ class CustomBtn extends StatelessWidget {
               BoxShadow(
                   color: shadowColor == null
                       ? Colors.grey.withOpacity(0.5)
-                      : shadowColor!.withOpacity(0.5),
+                      : shadowColor.withOpacity(0.5),
                   offset: Offset(2, 3),
                   blurRadius: 4)
             ]),
